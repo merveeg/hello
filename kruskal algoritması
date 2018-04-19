@@ -1,0 +1,121 @@
+package algoritma;
+
+import java.util.ArrayList;
+
+import java.util.Collections;
+
+import java.util.Comparator;
+
+import java.util.List;
+
+import java.util.Scanner;
+
+public class Kruskol {
+
+public static void fillNodes() {
+
+List<Node> nodes = new ArrayList<>();
+
+int kenar;
+
+Scanner scan=new Scanner(System.in);
+
+System.out.println("kenar sayisi girin:");
+
+kenar=scan.nextInt();
+
+int dugumsayisi;
+
+System.out.println("dugum sayisi girin:");
+
+dugumsayisi=scan.nextInt();
+
+for (int i = 0; i < kenar; i++) {
+
+//("ornek olarak dugumler indislerle numaralandırıldı 0.indisten baslayarak"
+
+//+ "kenar için başlangıc(kaynak) ve bitiş(hedef) dugumleri secildi."
+
+//+ "a-b=3 gibi kenar agırlıgı verilen bi yol için"
+
+//+ "0 1 3 biçimlendirildi."
+
+//)
+
+Node n = new Node();
+
+System.out.print("nereden:");
+
+n.kaynak=scan.nextInt();
+
+System.out.print("nereye:");
+
+n.hedef=scan.nextInt();
+
+System.out.print("agırlık:");
+
+n.agirlik=scan.nextInt();
+
+//get numbers
+
+nodes.add(n);
+
+}
+
+Collections.sort(nodes, new Comparator<Node>() {
+
+@Override
+
+public int compare(Node o1, Node o2) {
+
+return Integer.compare(o1.agirlik, o2.agirlik);
+
+}
+
+});
+
+int[] dolasilanyol=new int[dugumsayisi];
+
+for(int i=0;i<dugumsayisi;i++)
+
+{
+
+dolasilanyol[i]=0;
+
+}
+
+for(int k=0;k<kenar;k++)
+
+{
+
+if(dolasilanyol[nodes.get(k).kaynak]==0 || dolasilanyol[nodes.get(k).hedef]==0)
+
+{
+
+System.out.println("alinan dugum:"+nodes.get(k).kaynak+"den"+nodes.get(k).hedef+"ye olan"+nodes.get(k).agirlik);
+
+dolasilanyol[nodes.get(k).kaynak]=1; dolasilanyol[nodes.get(k).hedef]=1;
+
+}
+
+}
+
+}
+
+public static void main(String[] args) {
+
+fillNodes();
+
+}
+
+public static class Node {
+
+public int kaynak;
+
+public int hedef;
+
+public int agirlik;
+
+}
+
+}
