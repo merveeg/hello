@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include<math.h>
+#define g(x) a*pow(x,3)+b*pow(x,2)+c*x+d;
+
+int main()
+{
+	/*define ile tanımalamış olduğumuz fonksiyon için klavyeden (kullanıcıdan) fonksiyonun katsayılarını girmesi istendi.
+	Daha sonra kök değerini hesaplamak için bir alt bir de üst değer girilmesini istedik.*/
+
+	float alt,ust;
+    int a,b,c,d;
+	printf("Koku hesaplanacak 3 degiskenli fonksiyonun katsayilarini sırasıyla giriniz:"); scanf("%d%d%d%d",&a,&b,&c,&d);
+	printf("Alt degerinizi giriniz:"); scanf("%f",&alt);
+	printf("Ust degerinizi giriniz:"); scanf("%f",&ust);
+
+	float hata;
+	printf("Hata payinizi giriniz:");
+    scanf("%f",&hata);
+/*fonksiyonun kökünün olup olmadığını anlamak için girilen aralıkları(yani alt ve üst değeri) g(x) fonksiyonumuzda yerine koyduk.
+Ve bunları degisken1 ve degisken2 adındaki değişkenlerde tuttuk.*/
+	float degisken1,degisken2;
+	degisken1 = g(alt);
+	degisken2 = g(ust);
+
+/*bu degiskenler zıt işaretli ise yani degisken1*degisken2<0 ise koşulumuzun içine girdik.*/
+	if (degisken1*degisken2<0)
+	{
+		float k,deger;
+		do
+		{
+		/*girilen alt ve üst degerleri yarılama yöntemi kullanıyoruz.Elde ettiğimiz sonuca k dedik.Elde edilen k'yı g(x) 
+		fonksiyonumuzda yerine yazdık ve sonucu deger adında bir değişkende tuttuk.*/
+		k = (alt+ust)/2;
+		deger = g(k);
+		/*işaretler zıt ise,yani çarpımları<0 ise ust değerimiz değişir.Ust deger o andaki yarılamadan elde edilen sonuca yani 
+		o adımdaki k degerine eşit olur*/
+		if(degisken1*deger<0)
+		{
+			ust = k;
+			degisken2 = deger;
+		}
+		/*eger işaretler aynı ise yani degisken1*deger>0 ise alt değer değişir.Alt deger o adımdaki yarılamadan elde edilen 
+		sonuca yani o adımdaki k degerine eşit olur.*/
+		else
+		{
+			
+			alt=k;
+			degisken1=deger;
+		}
+       /* degerin mutlak degeri girilen hata degerinden büyük olduğu sürece devam eder.Bunun için koşul oluştursun diye
+	   bir do-while oluşturduk.Eger degerin mutlağı ,girilen hata 
+       degerinden daha küçükse kök bulunmuş oluyor.Kökü ekrana yazıyor.*/
+
+		}while(fabs(deger)>hata);
+
+		printf("%.4f",k);
+	}
+}
