@@ -1,0 +1,129 @@
+package algoritma;
+
+import java.util.ArrayList;
+
+import java.util.List;
+
+import java.util.Scanner;
+
+import algoritma.Kruskol.Node;
+
+public class Prim {
+
+public static void main(String[] args)
+
+{
+
+Scanner scan=new Scanner(System.in);
+
+System.out.println("Dugum sayisi girin:");
+
+int dugumsayisi= scan.nextInt();
+
+int [][]Matrix = new int[dugumsayisi ][dugumsayisi ]; //indexler 0 dan başlayacak
+
+//Örnek gösterim düğüm A=0,düğüm B=1şeklinde
+
+//satır sütun= kaynak hedef şeklinde matris
+
+int min= 999;
+
+int kaynak=0;
+
+int hedef=0;
+
+int agirlik=0;
+
+System.out.println("Agırlıklarıyla matrisi oluşturalım dugum indexleri 0.baslayarak");
+
+for (int i = 0; i <dugumsayisi; i++)
+
+{
+
+for (int j = 0; j < dugumsayisi; j++) // dugum indisleri: a=0 b=1...
+
+{
+
+System.out.println(i+".dugumden"+j+".dugume dugum agirligini girin:");
+
+Matrix[i][j] = scan.nextInt();
+
+if (i == j)
+
+{
+
+Matrix[i][j] = 0; // kendisinden kendisine yol olmaz.
+
+continue;
+
+}
+
+if (Matrix[i][j] == 0)
+
+{
+
+Matrix[i][j] = 999; //max olsun dokunulmasın zaten 0
+
+}
+
+}
+
+}
+
+int []dolasilan=new int[dugumsayisi];
+
+dolasilan[0]=1;
+
+for(int yolsayar=0;yolsayar<(dugumsayisi-1);yolsayar++)
+
+{
+
+min = 999;
+
+for(int i=0;i<dugumsayisi;i++)
+
+{
+
+if(dolasilan[i]==1)
+
+{
+
+for(int j=0;j<dugumsayisi;j++)
+
+{
+
+if(dolasilan[j]!=1)
+
+{
+
+if(min>Matrix[i][j])
+
+{
+
+min=Matrix[i][j];
+
+kaynak=i;
+
+hedef=j;
+
+}
+
+}
+
+}
+
+}
+
+}
+
+dolasilan[hedef]=1;
+
+System.out.println("alinan yol için kaynak dugum : hedef dugum= agırlık");
+
+System.out.println(kaynak + "\t:" + hedef +"\t="+ min);
+
+}
+
+}
+
+}
